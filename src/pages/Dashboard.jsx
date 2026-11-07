@@ -75,14 +75,15 @@ function Sidebar({ active, setActive, collapsed, onToggle }) {
 }
 
 function OverviewView({ onScan, onNavigate }) {
-  return (
+  
+    
+    <section className="page-view overview-view">return (
     <img
   src="/logo.jpg"
   alt="EcoSync logo"
   style={{ display: 'block', width: '120px', height: 'auto', marginTop: '16px' }}
 />
-    
-    <section className="page-view overview-view">
+      
       <div className="page-header compact-header"><div className="eyebrow">HOME / DASHBOARD</div><h1>Good to see you, Ogunmepon</h1><p>Here&apos;s a quick snapshot of your recovery progress and activity.</p></div>
       <div className="stats-row">
         <article className="mini-stat"><span className="value">1</span><span className="label">Collections logged</span></article>
