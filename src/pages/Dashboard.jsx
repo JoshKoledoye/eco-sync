@@ -37,8 +37,30 @@ function Sidebar({ active, setActive }) {
         ))}
       </nav>
       <div className="sidebar-footer"><div className="mini-device" /></div>
-      <div className="profile-card"><div className="profile-avatar">A</div><div className="profile-copy"><strong>Ogunmepon Okechukwu</strong><span>Household demo account</span></div><span className="profile-arrow">›</span></div>
+      <div className="profile-card"><div className="profile-avatar">A</div><div className="profile-copy"><strong>Ogunmepon Okechukwu</strong><span>Household demo account</span></div><span className="profile-tag">Live</span></div>
     </aside>
+  );
+}
+
+function OverviewView() {
+  return (
+    <section className="page-view overview-view">
+      <div className="page-header compact-header">
+        <div className="eyebrow">HOME / DASHBOARD</div>
+        <h1>Welcome user</h1>
+        <p>Here&apos;s a quick snapshot of your recovery progress and activity.</p>
+      </div>
+      <div className="stats-row">
+        <article className="mini-stat"><span className="value">1</span><span className="label">Collections logged</span></article>
+        <article className="mini-stat"><span className="value">₦2,850</span><span className="label">Recovery earnings</span></article>
+        <article className="mini-stat"><span className="value">1,240</span><span className="label">EcoPoints</span></article>
+      </div>
+      <div className="panel-card">
+        <div className="panel-heading-row"><div className="eyebrow">YOUR ROUTINE</div></div>
+        <h2>Everything you need at a glance</h2>
+        <p>Scan a new material, review your collections, and track the impact you are creating.</p>
+      </div>
+    </section>
   );
 }
 
@@ -181,11 +203,11 @@ function CollectionsView({ onScan }) {
       <div className="panel-card schedule-panel">
         <div className="panel-heading-row"><div className="eyebrow">IN PROGRESS</div><span className="status-badge success">○ active</span></div>
         <h2>Upcoming pickups</h2>
-        <div className="empty-state emphasis"><div className="empty-icon">▣</div><h3>No pickups pending</h3><p>Your next recovery starts with a quick scan.</p><button type="button" className="scan-button" onClick={onScan}>Scan a material →</button></div>
+        <div className="empty-state emphasis"><div className="empty-icon">▣</div><h3>No pickups pending</h3><p>Your next recovery starts with a quick scan.</p><button type="button" className="scan-button secondary-button">Schedule a collection</button></div>
       </div>
       <div className="panel-card collection-history">
         <div className="panel-heading-row"><div className="eyebrow">COMPLETED</div></div><h2>Past collections</h2>
-        <div className="history-item"><div className="history-icon">◫</div><div className="history-copy"><div className="history-mainline"><span className="pill">PET plastic bottles</span><span className="success-tag">• Collected</span></div><div className="history-meta"><span>EC-1042 • Yesterday</span></div><div className="history-meta detail-meta"><span>2.4 kg</span><span>GreenHub Collector</span><span>Pickup</span></div></div><div className="history-reward">+₦204</div></div>
+        <div className="history-item"><div className="history-icon">◫</div><div className="history-copy"><div className="history-mainline"><span className="pill">PET plastic bottles</span><span className="history-date">Mar 12</span></div><p>Recovered for a local circular hub</p></div></div>
       </div>
     </section>
   );
@@ -195,13 +217,13 @@ function WalletView() {
   const [tab, setTab] = useState('rewards');
   return (
     <section className="page-view wallet-view">
-      <div className="page-header compact-header wallet-header"><div className="eyebrow">EARN FROM EVERY RECOVERY</div><div className="header-row"><h1>EcoWallet</h1><button type="button" className="secondary-button">✓ Demo balance</button></div><p>Your recycling value, all in one place.</p></div>
+      <div className="page-header compact-header wallet-header"><div className="eyebrow">EARN FROM EVERY RECOVERY</div><div className="header-row"><h1>EcoWallet</h1><button type="button" className="secondary-button small">Add funds</button></div></div>
       <div className="wallet-summary">
-        <div className="wallet-balance card-surface"><div className="wallet-topline"><span className="brand-name">EcoSync</span><span className="wallet-label">WALLET</span></div><div className="wallet-metric"><span>Available demo earnings</span><strong>₦2,850</strong></div><div className="wallet-footer"><span>Value recovered</span><span>DEMO • NOT WITHDRAWABLE</span></div></div>
-        <div className="points-balance card-surface soft-green"><div className="wallet-icon">◫</div><div className="points-label">Available EcoPoints</div><div className="points-value">1,240 <small>pts</small></div><p>Turn positive action into everyday essentials.</p></div>
+        <div className="wallet-balance card-surface"><div className="wallet-topline"><span className="brand-name">EcoSync</span><span className="wallet-label">WALLET</span></div><div className="wallet-total">₦41,200</div><small>Available balance</small></div>
+        <div className="points-balance card-surface soft-green"><div className="wallet-icon">◫</div><div className="points-label">Available EcoPoints</div><div className="points-value">1,240 <small>points</small></div></div>
       </div>
-      <div className="wallet-tabs"><button className={`tab-button ${tab === 'rewards' ? 'active' : ''}`} type="button" onClick={() => setTab('rewards')}>Rewards marketplace</button><button className={`tab-button ${tab === 'history' ? 'active' : ''}`} type="button" onClick={() => setTab('history')}>Transaction history</button></div>
-      {tab === 'rewards' ? <div className="reward-grid">{stats.map((stat) => <article className="wallet-stat card-surface" key={stat.label}><div className="wallet-stat-icon">{stat.label.includes('Completed') ? '◌' : stat.label.includes('Recovery') ? '▣' : '◫'}</div><div className="wallet-stat-copy"><span>{stat.label}</span><strong>{stat.value}</strong><small>{stat.detail}</small></div></article>)}</div> : <div className="panel-card transaction-empty"><h2>Transaction history</h2><p>Your demo wallet activity will appear here after a collection.</p></div>}
+      <div className="wallet-tabs"><button className={`tab-button ${tab === 'rewards' ? 'active' : ''}`} type="button" onClick={() => setTab('rewards')}>Rewards marketplace</button><button className={`tab-button ${tab === 'activity' ? 'active' : ''}`} type="button" onClick={() => setTab('activity')}>Wallet activity</button></div>
+      {tab === 'rewards' ? <div className="reward-grid">{stats.map((stat) => <article className="wallet-stat card-surface" key={stat.label}><div className="wallet-stat-icon">{stat.label.includes('Completed') ? '✓' : stat.label.includes('Recovery') ? '₦' : '◌'}</div><div><strong>{stat.value}</strong><span>{stat.label}</span><small>{stat.detail}</small></div></article>)}</div> : <div className="panel-card"><h2>Recent wallet activity</h2><p>No payouts or deductions in the last 7 days.</p></div>}
     </section>
   );
 }
@@ -209,12 +231,12 @@ function WalletView() {
 function ImpactView() {
   return (
     <section className="page-view impact-view">
-      <div className="page-header impact-header"><div className="eyebrow">YOUR POSITIVE FOOTPRINT</div><div className="header-row"><h1>Small actions. Lasting impact.</h1><button type="button" className="secondary-button">↗ Growing greener</button></div><p>See what your recovery activity adds up to.</p></div>
-      <div className="impact-hero card-surface dark-green"><div className="hero-copy"><div className="eyebrow light">MATERIALS RECOVERED</div><div className="impact-number">8.4<span>kg</span></div><p>Illustrative waste diverted into recovery streams across your demo journey.</p><button type="button" className="cta-button light">Keep it going →</button></div><div className="impact-ring-wrap"><div className="impact-ring"><div className="ring-center"><span className="leaf-icon">✿</span><strong>Every kg counts.</strong></div></div></div></div>
-      <div className="impact-stats-grid"><article className="impact-stat card-surface"><div className="impact-icon">↻</div><span>Completed collections</span><strong>1</strong><small>Verified inside demo flow</small></article><article className="impact-stat card-surface"><div className="impact-icon">◫</div><span>Recovery earnings</span><strong>₦2,850</strong><small>Illustrative total</small></article><article className="impact-stat card-surface"><div className="impact-icon">◌</div><span>Reward points</span><strong>1,240</strong><small>EcoPoints available</small></article></div>
+      <div className="page-header impact-header"><div className="eyebrow">YOUR POSITIVE FOOTPRINT</div><div className="header-row"><h1>Small actions. Lasting impact.</h1><button type="button" className="secondary-button small">View report</button></div></div>
+      <div className="impact-hero card-surface dark-green"><div className="hero-copy"><div className="eyebrow light">MATERIALS RECOVERED</div><div className="impact-number">8.4<span>kg</span></div><p>Recovered through your demo and verified collection loops.</p></div></div>
+      <div className="impact-stats-grid"><article className="impact-stat card-surface"><div className="impact-icon">↻</div><span>Completed collections</span><strong>1</strong><small>Verified inside demo flow</small></article><article className="impact-stat card-surface"><div className="impact-icon">▣</div><span>Recovery earnings</span><strong>₦2,850</strong><small>Illustrative total</small></article><article className="impact-stat card-surface"><div className="impact-icon">◫</div><span>Reward points</span><strong>1,240</strong><small>EcoPoints available</small></article></div>
       <div className="info-row">
-        <div className="chart-card card-surface"><div className="chart-header"><span className="eyebrow">RECOVERY RHYTHM</span><button type="button" className="secondary-button small">Illustrative chart</button></div><h2>A greener week</h2><div className="bar-chart" aria-label="Weekly recovery chart">{weekBars.map((bar, index) => <div key={index} className={`bar ${index === 5 ? 'solid' : ''}`} style={{ height: `${bar}%` }}><span>{['M', 'T', 'W', 'T', 'F', 'S', 'S'][index]}</span></div>)}</div><p>Keep showing up. Small, consistent actions are how recovery habits grow.</p></div>
-        <div className="why-matters card-surface"><div className="chart-header"><span className="eyebrow">WHY IT MATTERS</span></div><h2>Recovery creates a ripple.</h2><ul className="matter-list"><li><span className="matter-icon">◌</span><div><strong>Cleaner surroundings</strong><p>Less unmanaged waste in streets and drainage channels.</p></div></li><li><span className="matter-icon">◫</span><div><strong>Local green livelihoods</strong><p>Recovery creates opportunities for collection partners.</p></div></li><li><span className="matter-icon">▣</span><div><strong>Better waste information</strong><p>Transaction data can inform future circular-economy decisions.</p></div></li></ul></div>
+        <div className="chart-card card-surface"><div className="chart-header"><span className="eyebrow">RECOVERY RHYTHM</span><button type="button" className="secondary-button small">Illustrative chart</button></div><div className="bar-chart">{weekBars.map((value, index) => <span key={index} style={{ height: `${value}%` }} />)}</div></div>
+        <div className="why-matters card-surface"><div className="chart-header"><span className="eyebrow">WHY IT MATTERS</span></div><h2>Recovery creates a ripple.</h2><ul className="matter-list"><li>Material is kept in circulation instead of landfill.</li><li>Collection routines build cleaner neighbourhoods.</li><li>Every action compounds into a larger sustainability loop.</li></ul></div>
       </div>
       <p className="impact-disclaimer">ⓘ &nbsp;Only demonstrated collection weights update automatically. Environmental outcomes beyond those weights are not calculated or verified.</p>
     </section>
@@ -223,27 +245,21 @@ function ImpactView() {
 
 function WalkthroughModal({ onClose, onBegin }) {
   return (
-    <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="walkthrough-title"><div className="walkthrough-modal"><button type="button" className="close-button" onClick={onClose} aria-label="Close walkthrough">×</button><div className="eyebrow">COUCH 2026 • JUDGE WALKTHROUGH</div><h2 id="walkthrough-title">Experience EcoSync in 2 minutes.</h2><p>Follow this path to experience a complete waste-to-value transaction.</p>
-      <ol className="walkthrough-steps"><li><span className="step-marker">1.</span><div className="step-icon">◉</div><div><strong>Scan a material</strong><span>Choose PET bottles and view sorting advice.</span></div></li><li><span className="step-marker">2.</span><div className="step-icon">▣</div><div><strong>See the value</strong><span>Estimate payout and discover EcoPoints.</span></div></li><li><span className="step-marker">3.</span><div className="step-icon">▤</div><div><strong>Request a collection</strong><span>Select a sample recovery partner.</span></div></li><li><span className="step-marker">4.</span><div className="step-icon success-check">✓</div><div><strong>Confirm pickup</strong><span>Use the Collector Console to complete it.</span></div></li><li><span className="step-marker">5.</span><div className="step-icon">◫</div><div><strong>Redeem and measure</strong><span>See EcoWallet and impact totals change.</span></div></li></ol>
-      <div className="modal-actions"><button type="button" className="cta-button dark large" onClick={onBegin}>Begin walkthrough →</button><button type="button" className="secondary-button wide" onClick={onClose}>↻ Reset sample data</button></div>
-    </div></div>
+    <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="walkthrough-title"><div className="walkthrough-modal"><button type="button" className="close-button" onClick={onClose}>×</button><div className="walkthrough-header"><div className="eyebrow">WELCOME</div><h2 id="walkthrough-title">EcoSync quick start</h2></div><ol className="walkthrough-steps"><li><span className="step-marker">1.</span><div className="step-icon">◉</div><div><strong>Scan a material</strong><span>Choose PET bottles and view sorting advice.</span></div></li><li><span className="step-marker">2.</span><div className="step-icon">▣</div><div><strong>Track collections</strong><span>Review status, pickup timing, and your activity log.</span></div></li><li><span className="step-marker">3.</span><div className="step-icon">◫</div><div><strong>Earn rewards</strong><span>Turn recovery into EcoPoints and wallet balance.</span></div></li></ol><div className="modal-actions"><button type="button" className="cta-button dark large" onClick={onBegin}>Begin walkthrough →</button><button type="button" className="secondary-button wide" onClick={onClose}>Skip</button></div></div></div>
   );
 }
 
 export default function Dashboard() {
-  const [activeView, setActiveView] = useState('impact');
+  const [activeView, setActiveView] = useState('overview');
   const [showWalkthrough, setShowWalkthrough] = useState(true);
   const [walkthroughStep, setWalkthroughStep] = useState(0);
 
-  const pageTitle = navItems.find((item) => item.id === activeView)?.label ?? 'My Impact';
+  const pageTitle = navItems.find((item) => item.id === activeView)?.label ?? 'Overview';
   const goToScanner = () => setActiveView('scanner');
   const beginWalkthrough = () => { setShowWalkthrough(false); setActiveView('scanner'); setWalkthroughStep(1); };
-  const renderedView = activeView === 'collections' ? <CollectionsView onScan={goToScanner} /> : activeView === 'wallet' ? <WalletView /> : activeView === 'overview' || activeView === 'scanner' ? <ScannerView /> : <ImpactView />;
+  const renderedView = activeView === 'overview' ? <OverviewView /> : activeView === 'collections' ? <CollectionsView onScan={goToScanner} /> : activeView === 'wallet' ? <WalletView /> : activeView === 'scanner' ? <ScannerView /> : <ImpactView />;
 
   return (
-    <div className="app-shell"><Sidebar active={activeView} setActive={setActiveView} /><main className="main-panel"><header className="topbar"><div className="breadcrumb"><span>EcoSync</span><span className="crumb-divider">›</span><span>{pageTitle}</span></div><div className="topbar-actions"><button type="button" className="demo-pill"><span className="demo-dot" />Interactive demo</button><button type="button" className="icon-button" aria-label="About this demo">i</button><div className="top-avatar">A</div></div></header><div className="main-content">{renderedView}</div></main>
-      {showWalkthrough && <WalkthroughModal onClose={() => setShowWalkthrough(false)} onBegin={beginWalkthrough} />}
-      {walkthroughStep > 0 && <div className="walkthrough-progress" role="status">Walkthrough started · Step {walkthroughStep} of 5<button type="button" onClick={() => setWalkthroughStep(0)}>End</button></div>}
-    </div>
+    <div className="app-shell"><Sidebar active={activeView} setActive={setActiveView} /><main className="main-panel"><header className="topbar"><div className="breadcrumb"><span>EcoSync</span><span className="crumb-divider">/</span><span>{pageTitle}</span></div><div className="topbar-actions"><button type="button" className="secondary-button small">Export</button></div></header>{renderedView}{showWalkthrough && <WalkthroughModal onClose={() => setShowWalkthrough(false)} onBegin={beginWalkthrough} />}{walkthroughStep > 0 && <div className="walkthrough-progress" role="status">Walkthrough started · Step {walkthroughStep} of 5<button type="button" onClick={() => setWalkthroughStep(0)}>End</button></div>}</main></div>
   );
 }
