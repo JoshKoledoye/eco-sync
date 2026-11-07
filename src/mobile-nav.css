@@ -62,6 +62,44 @@
     display: none;
   }
 
+  /* Stack dense three-card groups to preserve readable text and card widths. */
+  .stats-row,
+  .impact-stats-grid,
+  .reward-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .stats-row > *,
+  .impact-stats-grid > *,
+  .reward-grid > * {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .mini-stat {
+    min-height: 88px;
+    padding: 17px 18px;
+  }
+
+  .mini-stat .label,
+  .impact-stat > span,
+  .wallet-stat span,
+  .wallet-stat small {
+    overflow-wrap: anywhere;
+    line-height: 1.45;
+  }
+
+  .impact-stat {
+    min-height: 112px;
+    padding: 16px 18px;
+  }
+
+  .wallet-stat {
+    min-height: 100px;
+    padding: 17px;
+  }
+
   .main-content {
     padding-bottom: calc(104px + env(safe-area-inset-bottom));
   }
