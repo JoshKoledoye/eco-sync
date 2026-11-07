@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const navItems = [
   { id: 'overview', label: 'Overview', icon: '⌂' },
-  { id: 'scanner', label: 'AI Scanner', icon: '◌' },
+  { id: 'scanner', label: 'AI Scanner', icon: '⛶' },
   { id: 'collections', label: 'My Collections', icon: '▣' },
   { id: 'wallet', label: 'EcoWallet', icon: '◫' },
   { id: 'impact', label: 'My Impact', icon: '▤' },
