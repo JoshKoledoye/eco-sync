@@ -26,19 +26,55 @@ const weekBars = [58, 40, 68, 82, 52, 78, 66];
 function Sidebar({ active, setActive, collapsed, onToggle }) {
   return (
     <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
+      <div className="brand-block">
+        <div className="brand-mark">
+          <img src="logo.jpg" alt="EcoSync logo" />
+        </div>
+        {!collapsed && <span className="sidebar-wordmark">EcoSync</span>}
+      </div>
 
-</div>
-      <button type="button" className="sidebar-collapse-button" onClick={onToggle} aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} aria-expanded={!collapsed} title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}><span aria-hidden="true">{collapsed ? '»' : '«'}</span><span className="sidebar-toggle-label">{collapsed ? 'Expand' : 'Collapse'}</span></button>
+      <button
+        type="button"
+        className="sidebar-collapse-button"
+        onClick={onToggle}
+        aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+        aria-expanded={!collapsed}
+        title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+      >
+        {collapsed ? '→' : '←'}
+      </button>
+
       <div className="sidebar-label">Your space</div>
+
       <nav className="side-nav" aria-label="Sidebar navigation">
         {navItems.map((item) => (
-          <button key={item.id} type="button" title={collapsed ? item.label : undefined} className={`nav-item ${active === item.id ? 'active' : ''}`} aria-current={active === item.id ? 'page' : undefined} onClick={() => setActive(item.id)}>
-            <span className="nav-icon">{item.icon}</span><span className="nav-label">{item.label}</span>{active === item.id && <span className="nav-dot" />}
+          <button
+            key={item.id}
+            type="button"
+            title={collapsed ? item.label : undefined}
+            className={`nav-item ${active === item.id ? 'active' : ''}`}
+            aria-current={active === item.id ? 'page' : undefined}
+            onClick={() => setActive(item.id)}
+          >
+            <span className="nav-icon">{item.icon}</span>
+            <span className="nav-label">{item.label}</span>
+            {active === item.id && <span className="nav-dot" />}
           </button>
         ))}
       </nav>
-      <div className="sidebar-footer"><div className="mini-device" /></div>
-      <div className="profile-card"><div className="profile-avatar">A</div><div className="profile-copy"><strong>Ogunmepon Okechukwu</strong><span>Household demo account</span></div><span className="profile-tag">Live</span></div>
+
+      <div className="sidebar-footer">
+        <div className="mini-device" />
+      </div>
+
+      <div className="profile-card">
+        <div className="profile-avatar">A</div>
+        <div className="profile-copy">
+          <strong>Ogunmepon Okechukwu</strong>
+          <span>Household demo account</span>
+        </div>
+        <span className="profile-tag">Demo</span>
+      </div>
     </aside>
   );
 }
