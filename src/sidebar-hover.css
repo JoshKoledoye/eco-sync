@@ -1,4 +1,4 @@
-/* Desktop navigation stays compact until the pointer or keyboard focus enters the sidebar. */
+/* Desktop navigation stays compact until the pointer or keyboard focus enters it. */
 @media (min-width: 761px) {
   .app-shell,
   .app-shell.sidebar-is-collapsed {
@@ -14,7 +14,6 @@
     transition: width 260ms cubic-bezier(.2, .75, .25, 1), padding 260ms cubic-bezier(.2, .75, .25, 1);
   }
 
-  /* Hovering the page content must not keep the sidebar expanded. */
   .app-shell:has(.sidebar:hover),
   .app-shell:has(.sidebar:focus-within) {
     grid-template-columns: 250px minmax(0, 1fr);
@@ -49,11 +48,7 @@
     transition: opacity 160ms ease, width 260ms cubic-bezier(.2, .75, .25, 1);
   }
 
-  .profile-card {
-    justify-content: center;
-    padding-right: 6px;
-    padding-left: 6px;
-  }
+  .profile-card { justify-content: center; padding-right: 6px; padding-left: 6px; }
 
   .app-shell:has(.sidebar:hover) .sidebar-wordmark,
   .app-shell:has(.sidebar:hover) .sidebar-label,
@@ -91,21 +86,11 @@
 }
 
 @media (max-width: 760px) {
-  .app-shell,
-  .app-shell.sidebar-is-collapsed {
-    column-gap: 0;
-  }
-
-  /* The nav is fixed to the viewport bottom, so reserve space in the page itself. */
-  .main-panel {
-    padding-bottom: calc(108px + env(safe-area-inset-bottom));
-  }
-
+  .app-shell,.app-shell.sidebar-is-collapsed { column-gap: 0; }
+  .main-panel { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
   .sidebar-collapse-button { display: none !important; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .app-shell, .sidebar, .sidebar-wordmark, .sidebar-label, .profile-copy, .profile-tag, .side-nav .nav-label {
-    transition-duration: .01ms !important;
-  }
+  .app-shell,.sidebar,.sidebar-wordmark,.sidebar-label,.profile-copy,.profile-tag,.side-nav .nav-label { transition-duration: .01ms !important; }
 }
