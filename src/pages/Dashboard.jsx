@@ -26,7 +26,6 @@ const weekBars = [58, 40, 68, 82, 52, 78, 66];
 function Sidebar({ active, setActive, collapsed, onToggle }) {
   return (
     <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
-      // src/pages/Dashboard.jsx
 <div className="brand-block">
   <div className="brand-mark">
     <img src="logo.jpg" alt="EcoSync" />
