@@ -1,4 +1,4 @@
-/* Desktop navigation stays compact until the pointer or keyboard focus enters it. */
+/* Desktop navigation stays compact until the pointer or keyboard focus enters the sidebar. */
 @media (min-width: 761px) {
   .app-shell,
   .app-shell.sidebar-is-collapsed {
@@ -13,8 +13,9 @@
     transition: width 260ms cubic-bezier(.2, .75, .25, 1), padding 260ms cubic-bezier(.2, .75, .25, 1);
   }
 
-  .app-shell:hover,
-  .app-shell:focus-within {
+  /* Hovering the page content must not keep the sidebar expanded. */
+  .app-shell:has(.sidebar:hover),
+  .app-shell:has(.sidebar:focus-within) {
     grid-template-columns: 250px minmax(0, 1fr);
   }
 
@@ -55,35 +56,35 @@
     padding-left: 6px;
   }
 
-  .app-shell:hover .sidebar-wordmark,
-  .app-shell:hover .sidebar-label,
-  .app-shell:hover .profile-copy,
-  .app-shell:hover .profile-tag,
-  .app-shell:focus-within .sidebar-wordmark,
-  .app-shell:focus-within .sidebar-label,
-  .app-shell:focus-within .profile-copy,
-  .app-shell:focus-within .profile-tag {
+  .app-shell:has(.sidebar:hover) .sidebar-wordmark,
+  .app-shell:has(.sidebar:hover) .sidebar-label,
+  .app-shell:has(.sidebar:hover) .profile-copy,
+  .app-shell:has(.sidebar:hover) .profile-tag,
+  .app-shell:has(.sidebar:focus-within) .sidebar-wordmark,
+  .app-shell:has(.sidebar:focus-within) .sidebar-label,
+  .app-shell:has(.sidebar:focus-within) .profile-copy,
+  .app-shell:has(.sidebar:focus-within) .profile-tag {
     width: auto;
     opacity: 1;
     pointer-events: auto;
   }
 
-  .app-shell:hover .side-nav .nav-item,
-  .app-shell:focus-within .side-nav .nav-item {
+  .app-shell:has(.sidebar:hover) .side-nav .nav-item,
+  .app-shell:has(.sidebar:focus-within) .side-nav .nav-item {
     justify-content: flex-start;
     padding-right: 13px;
     padding-left: 13px;
   }
 
-  .app-shell:hover .side-nav .nav-label,
-  .app-shell:focus-within .side-nav .nav-label {
+  .app-shell:has(.sidebar:hover) .side-nav .nav-label,
+  .app-shell:has(.sidebar:focus-within) .side-nav .nav-label {
     width: auto;
     opacity: 1;
     pointer-events: auto;
   }
 
-  .app-shell:hover .profile-card,
-  .app-shell:focus-within .profile-card {
+  .app-shell:has(.sidebar:hover) .profile-card,
+  .app-shell:has(.sidebar:focus-within) .profile-card {
     justify-content: flex-start;
     padding-right: 3px;
     padding-left: 3px;
