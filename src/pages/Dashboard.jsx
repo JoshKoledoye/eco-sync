@@ -37,7 +37,7 @@ function Sidebar({ active, setActive }) {
         ))}
       </nav>
       <div className="sidebar-footer"><div className="mini-device" /></div>
-      <div className="profile-card"><div className="profile-avatar">A</div><div className="profile-copy"><strong>Ada Johnson</strong><span>Household demo account</span></div><span className="profile-arrow">›</span></div>
+      <div className="profile-card"><div className="profile-avatar">A</div><div className="profile-copy"><strong>Ogunmepon Okechukwu</strong><span>Household demo account</span></div><span className="profile-arrow">›</span></div>
     </aside>
   );
 }
