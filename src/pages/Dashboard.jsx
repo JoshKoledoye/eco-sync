@@ -26,7 +26,12 @@ const weekBars = [58, 40, 68, 82, 52, 78, 66];
 function Sidebar({ active, setActive, collapsed, onToggle }) {
   return (
     <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
-      <div className="brand-block"><div className="brand-mark"><span><img src ='logo.jpg'></span></div><span className="sidebar-wordmark">EcoSync</span></div>
+      // src/pages/Dashboard.jsx
+<div className="brand-block">
+  <div className="brand-mark">
+    <img src="logo.jpg" alt="EcoSync" />
+  </div>
+</div>
       <button type="button" className="sidebar-collapse-button" onClick={onToggle} aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} aria-expanded={!collapsed} title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}><span aria-hidden="true">{collapsed ? '»' : '«'}</span><span className="sidebar-toggle-label">{collapsed ? 'Expand' : 'Collapse'}</span></button>
       <div className="sidebar-label">Your space</div>
       <nav className="side-nav" aria-label="Sidebar navigation">
