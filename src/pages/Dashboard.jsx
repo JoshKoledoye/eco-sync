@@ -9,11 +9,11 @@ const navItems = [
 ];
 
 const sampleOptions = [
-  { label: 'PET bottles', icon: '◫' },
-  { label: 'Aluminium cans', icon: '▣' },
-  { label: 'Cartons', icon: '▤' },
-  { label: 'Glass bottles', icon: '◌' },
-  { label: 'Organic waste', icon: '✿' },
+  { label: 'PET bottles', icon: '🥤' },
+  { label: 'Aluminium cans', icon: '🥫' },
+  { label: 'Cartons', icon: '📦' },
+  { label: 'Glass waste', icon: '🥛' },
+  { label: 'Organic waste', icon: '☢️' },
 ];
 
 const stats = [
