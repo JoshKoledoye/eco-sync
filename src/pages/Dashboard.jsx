@@ -28,7 +28,7 @@ function Sidebar({ active, setActive, collapsed, onToggle }) {
     <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
       <div className="brand-block">
         <div className="brand-mark">
-          <img src="logo.jpg" alt="EcoSync logo" />
+         
         </div>
         {!collapsed && <span className="sidebar-wordmark">EcoSync</span>}
       </div>
