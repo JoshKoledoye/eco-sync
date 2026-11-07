@@ -1,0 +1,36 @@
+/* Scanner camera controls: clear icon and mobile-friendly touch target. */
+.camera-controls .cta-button {
+  min-width: 180px;
+  min-height: 52px;
+  padding: 0 24px;
+  box-shadow: 0 6px 16px rgba(12, 74, 49, 0.16);
+}
+
+.camera-controls .cta-button::before {
+  content: '📷';
+  font-size: 19px;
+  line-height: 1;
+}
+
+.camera-controls .secondary-button {
+  min-height: 48px;
+}
+
+@media (max-width: 760px) {
+  .camera-controls {
+    width: 100%;
+    padding: 0 18px 4px;
+  }
+
+  .camera-controls .cta-button,
+  .camera-controls .secondary-button {
+    width: 100%;
+    min-height: 56px;
+    border-radius: 16px;
+    font-size: 15px;
+  }
+
+  .camera-controls .cta-button::before {
+    font-size: 21px;
+  }
+}
