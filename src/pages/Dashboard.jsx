@@ -26,12 +26,7 @@ const weekBars = [58, 40, 68, 82, 52, 78, 66];
 function Sidebar({ active, setActive, collapsed, onToggle }) {
   return (
     <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
-      <div className="brand-block">
-        <div className="brand-mark">
-         
-        </div>
-        {!collapsed && <span className="sidebar-wordmark">EcoSync</span>}
-      </div>
+      
 
       <button
         type="button"
