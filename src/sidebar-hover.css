@@ -1,0 +1,101 @@
+/* Desktop navigation stays compact until the pointer or keyboard focus enters it. */
+@media (min-width: 761px) {
+  .app-shell,
+  .app-shell.sidebar-is-collapsed {
+    grid-template-columns: 88px minmax(0, 1fr);
+    transition: grid-template-columns 260ms cubic-bezier(.2, .75, .25, 1);
+  }
+
+  .sidebar,
+  .app-shell.sidebar-is-collapsed .sidebar {
+    width: auto;
+    min-width: 0;
+    transition: width 260ms cubic-bezier(.2, .75, .25, 1), padding 260ms cubic-bezier(.2, .75, .25, 1);
+  }
+
+  .app-shell:hover,
+  .app-shell:focus-within {
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+
+  .sidebar-collapse-button {
+    display: none !important;
+  }
+
+  .sidebar-wordmark,
+  .sidebar-label,
+  .profile-copy,
+  .profile-tag {
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    transition: opacity 160ms ease, width 260ms cubic-bezier(.2, .75, .25, 1);
+  }
+
+  .side-nav .nav-item {
+    justify-content: center;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .side-nav .nav-label {
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    transition: opacity 160ms ease, width 260ms cubic-bezier(.2, .75, .25, 1);
+  }
+
+  .profile-card {
+    justify-content: center;
+    padding-right: 6px;
+    padding-left: 6px;
+  }
+
+  .app-shell:hover .sidebar-wordmark,
+  .app-shell:hover .sidebar-label,
+  .app-shell:hover .profile-copy,
+  .app-shell:hover .profile-tag,
+  .app-shell:focus-within .sidebar-wordmark,
+  .app-shell:focus-within .sidebar-label,
+  .app-shell:focus-within .profile-copy,
+  .app-shell:focus-within .profile-tag {
+    width: auto;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .app-shell:hover .side-nav .nav-item,
+  .app-shell:focus-within .side-nav .nav-item {
+    justify-content: flex-start;
+    padding-right: 13px;
+    padding-left: 13px;
+  }
+
+  .app-shell:hover .side-nav .nav-label,
+  .app-shell:focus-within .side-nav .nav-label {
+    width: auto;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .app-shell:hover .profile-card,
+  .app-shell:focus-within .profile-card {
+    justify-content: flex-start;
+    padding-right: 3px;
+    padding-left: 3px;
+  }
+}
+
+@media (max-width: 760px) {
+  .sidebar-collapse-button { display: none !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell, .sidebar, .sidebar-wordmark, .sidebar-label, .profile-copy, .profile-tag, .side-nav .nav-label {
+    transition-duration: .01ms !important;
+  }
+}
