@@ -1,0 +1,110 @@
+/* Camera preview popup for the dashboard's existing scanner flow. */
+.camera-card:hover {
+  transform: none;
+}
+
+.camera-box.camera-box-live {
+  position: fixed;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  width: min(680px, calc(100vw - 32px));
+  max-height: min(88vh, 760px);
+  min-height: 0;
+  padding: clamp(18px, 4vw, 30px);
+  overflow: auto;
+  border: 1px solid rgba(226, 236, 224, 0.96);
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 28px 90px rgba(8, 34, 20, 0.32);
+  transform: translate(-50%, -50%);
+  animation: scanner-popup-enter 180ms ease-out both;
+}
+
+.camera-box.camera-box-live::before {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  background: rgba(11, 35, 23, 0.68);
+  backdrop-filter: blur(5px);
+  content: '';
+}
+
+.camera-box-live .camera-live-frame {
+  position: relative;
+  width: min(100%, 560px);
+  max-height: 55vh;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 17px;
+  background: #13251a;
+}
+
+.camera-box-live .camera-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.camera-box-live .camera-live-indicator {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 10px;
+  border-radius: 20px;
+  color: #fff;
+  background: rgba(15, 35, 23, 0.72);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.camera-box-live .camera-live-indicator span {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #9ee66e;
+  box-shadow: 0 0 0 4px rgba(158, 230, 110, 0.18);
+}
+
+.camera-box-live > p {
+  margin-top: 17px;
+}
+
+.camera-box-live .camera-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.camera-error {
+  color: #a23232;
+}
+
+@keyframes scanner-popup-enter {
+  from { opacity: 0; transform: translate(-50%, calc(-50% + 10px)) scale(0.98); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+@media (max-width: 520px) {
+  .camera-box.camera-box-live {
+    width: calc(100vw - 24px);
+    max-height: 90vh;
+    border-radius: 18px;
+  }
+
+  .camera-box-live .camera-live-frame {
+    max-height: 48vh;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .camera-box.camera-box-live {
+    animation: none;
+  }
+}

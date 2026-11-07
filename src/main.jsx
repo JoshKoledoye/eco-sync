@@ -5,6 +5,7 @@ import App from './App.jsx';
 import './styles.css';
 import './mobile-nav.css';
 import './sidebar-hover.css';
+import './scanner-popup.css';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
