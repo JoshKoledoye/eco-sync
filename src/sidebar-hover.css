@@ -3,6 +3,7 @@
   .app-shell,
   .app-shell.sidebar-is-collapsed {
     grid-template-columns: 88px minmax(0, 1fr);
+    column-gap: 24px;
     transition: grid-template-columns 260ms cubic-bezier(.2, .75, .25, 1);
   }
 
@@ -19,9 +20,7 @@
     grid-template-columns: 250px minmax(0, 1fr);
   }
 
-  .sidebar-collapse-button {
-    display: none !important;
-  }
+  .sidebar-collapse-button { display: none !important; }
 
   .sidebar-wordmark,
   .sidebar-label,
@@ -92,6 +91,16 @@
 }
 
 @media (max-width: 760px) {
+  .app-shell,
+  .app-shell.sidebar-is-collapsed {
+    column-gap: 0;
+  }
+
+  /* The nav is fixed to the viewport bottom, so reserve space in the page itself. */
+  .main-panel {
+    padding-bottom: calc(108px + env(safe-area-inset-bottom));
+  }
+
   .sidebar-collapse-button { display: none !important; }
 }
 
