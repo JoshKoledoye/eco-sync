@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import logo from '../../logo.jpg';
+import logo from './logo.jpg';
 
 
 const navItems = [
