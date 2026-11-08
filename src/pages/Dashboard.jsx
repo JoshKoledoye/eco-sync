@@ -202,8 +202,8 @@ export default function Dashboard() {
   const renderedView = activeView === 'overview' ? <OverviewView onScan={goToScanner} onNavigate={setActiveView} /> : activeView === 'collections' ? <CollectionsView onScan={goToScanner} /> : activeView === 'wallet' ? <WalletView /> : activeView === 'scanner' ? <ScannerView /> : <ImpactView />;
 
   return (
+    <img src={logo} alt="EcoSync logo" className="dashboard-logo" />
     <div className={`app-shell ${sidebarCollapsed ? 'sidebar-is-collapsed' : ''}`}>
-       <img src={logo} alt="EcoSync logo" className="dashboard-logo" />
       <style>{`
         .sidebar, .main-panel, .nav-item, .nav-item .nav-label, .sidebar-wordmark, .profile-copy, .profile-tag, .sidebar-collapse-button, .page-view, .panel-card, .mini-stat, .card-surface, .cta-button, .secondary-button, .sample-item { transition: all 240ms cubic-bezier(.2,.75,.25,1); }
         .sidebar-collapse-button { display:flex; align-items:center; justify-content:center; gap:9px; width:calc(100% - 32px); margin:12px 16px 18px; padding:9px 10px; border:1px solid rgba(255,255,255,.13); border-radius:10px; color:inherit; background:rgba(255,255,255,.06); cursor:pointer; }
