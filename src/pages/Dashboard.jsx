@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import logo from './logo.jpg';
 
-
 const navItems = [
   { id: 'overview', label: 'Overview', icon: '🏠' },
   { id: 'scanner', label: 'AI Scanner', icon: '⛶' },
@@ -28,8 +27,6 @@ const weekBars = [58, 40, 68, 82, 52, 78, 66];
 function Sidebar({ active, setActive, collapsed, onToggle }) {
   return (
     <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
-      
-
       <button
         type="button"
         className="sidebar-collapse-button"
@@ -77,18 +74,29 @@ function Sidebar({ active, setActive, collapsed, onToggle }) {
 }
 
 function OverviewView({ onScan, onNavigate }) {
-  
-    <img src={logo} alt="EcoSync logo" />
-    <section className="page-view overview-view">return (
-     
-      
-      <div className="page-header compact-header"><div className="eyebrow">HOME / DASHBOARD</div><h1>Good to see you, Ogunmepon</h1><p>Here&apos;s a quick snapshot of your recovery progress and activity.</p></div>
+  return (
+    <section className="page-view overview-view">
+      <div className="page-header compact-header">
+        <img src={logo} alt="EcoSync logo" className="dashboard-logo" />
+        <div className="eyebrow">HOME / DASHBOARD</div>
+        <h1>Good to see you, Ogunmepon</h1>
+        <p>Here&apos;s a quick snapshot of your recovery progress and activity.</p>
+      </div>
       <div className="stats-row">
         <article className="mini-stat"><span className="value">1</span><span className="label">Collections logged</span></article>
         <article className="mini-stat"><span className="value">₦2,850</span><span className="label">Recovery earnings</span></article>
         <article className="mini-stat"><span className="value">1,240</span><span className="label">EcoPoints</span></article>
       </div>
-      <div className="panel-card overview-actions"><div className="panel-heading-row"><div className="eyebrow">YOUR ROUTINE</div></div><h2>Everything you need at a glance</h2><p>Scan a new material, review your collections, and track the impact you are creating.</p><div className="overview-action-buttons"><button type="button" className="cta-button dark" onClick={onScan}>Start a new scan →</button><button type="button" className="secondary-button" onClick={() => onNavigate('collections')}>View collections</button><button type="button" className="secondary-button" onClick={() => onNavigate('impact')}>Explore my impact</button></div></div>
+      <div className="panel-card overview-actions">
+        <div className="panel-heading-row"><div className="eyebrow">YOUR ROUTINE</div></div>
+        <h2>Everything you need at a glance</h2>
+        <p>Scan a new material, review your collections, and track the impact you are creating.</p>
+        <div className="overview-action-buttons">
+          <button type="button" className="cta-button dark" onClick={onScan}>Start a new scan →</button>
+          <button type="button" className="secondary-button" onClick={() => onNavigate('collections')}>View collections</button>
+          <button type="button" className="secondary-button" onClick={() => onNavigate('impact')}>Explore my impact</button>
+        </div>
+      </div>
     </section>
   );
 }
@@ -212,6 +220,7 @@ export default function Dashboard() {
         .sidebar-is-collapsed .sidebar-collapse-button { width:48px; margin-left:auto; margin-right:auto; }
         .sidebar-is-collapsed .nav-item { justify-content:center; padding-left:8px; padding-right:8px; }
         .sidebar-is-collapsed .profile-card { justify-content:center; padding-left:6px; padding-right:6px; }
+        .dashboard-logo { max-height: 40px; width: auto; margin-bottom: 12px; display: block; }
         @keyframes dashboard-enter { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
         @keyframes dashboard-rise { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         @media (min-width: 900px) { .sidebar-is-collapsed .sidebar { width:88px; min-width:88px; } .sidebar-is-collapsed .main-panel { min-width:0; } }
