@@ -76,7 +76,7 @@ function Sidebar({ active, setActive, collapsed, onToggle }) {
 function OverviewView({ onScan, onNavigate }) {
   return (
     <section className="page-view overview-view">
-       <img src={logo} alt="EcoSync logo" className="dashboard-logo" />
+       <img src={logo} alt="EcoSync logo" className="dashboard-logo"  style={{ height: '80px', width: 'auto', display: 'block' }}/>
       <div className="page-header compact-header">
         <div className="eyebrow">HOME / DASHBOARD</div>
         <h1>Good to see you, Ogunmepon</h1>
