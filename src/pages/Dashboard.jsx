@@ -27,6 +27,11 @@ const weekBars = [58, 40, 68, 82, 52, 78, 66];
 function Sidebar({ active, setActive, collapsed, onToggle }) {
   return (
     <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
+      {/* Brand logo header */}
+      <div className="sidebar-brand-container">
+        <img src={logo} alt="EcoSync logo" className="dashboard-logo" />
+      </div>
+
       <button
         type="button"
         className="sidebar-collapse-button"
@@ -202,11 +207,12 @@ export default function Dashboard() {
   const renderedView = activeView === 'overview' ? <OverviewView onScan={goToScanner} onNavigate={setActiveView} /> : activeView === 'collections' ? <CollectionsView onScan={goToScanner} /> : activeView === 'wallet' ? <WalletView /> : activeView === 'scanner' ? <ScannerView /> : <ImpactView />;
 
   return (
-  
     <div className={`app-shell ${sidebarCollapsed ? 'sidebar-is-collapsed' : ''}`}>
-        <img src={logo} alt="EcoSync logo" className="dashboard-logo" />
       <style>{`
         .sidebar, .main-panel, .nav-item, .nav-item .nav-label, .sidebar-wordmark, .profile-copy, .profile-tag, .sidebar-collapse-button, .page-view, .panel-card, .mini-stat, .card-surface, .cta-button, .secondary-button, .sample-item { transition: all 240ms cubic-bezier(.2,.75,.25,1); }
+        .sidebar-brand-container { padding: 16px 20px 8px; display: flex; align-items: center; justify-content: center; }
+        .dashboard-logo { height: 72px; width: auto; max-width: 100%; object-fit: contain; display: block; border-radius: 8px; }
+        .sidebar-is-collapsed .dashboard-logo { height: 44px; }
         .sidebar-collapse-button { display:flex; align-items:center; justify-content:center; gap:9px; width:calc(100% - 32px); margin:12px 16px 18px; padding:9px 10px; border:1px solid rgba(255,255,255,.13); border-radius:10px; color:inherit; background:rgba(255,255,255,.06); cursor:pointer; }
         .sidebar-collapse-button:hover { background:rgba(255,255,255,.14); transform:translateY(-1px); }
         .overview-action-buttons { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
@@ -221,7 +227,6 @@ export default function Dashboard() {
         .sidebar-is-collapsed .sidebar-collapse-button { width:48px; margin-left:auto; margin-right:auto; }
         .sidebar-is-collapsed .nav-item { justify-content:center; padding-left:8px; padding-right:8px; }
         .sidebar-is-collapsed .profile-card { justify-content:center; padding-left:6px; padding-right:6px; }
-        .dashboard-logo { max-height: 40px; width: auto; margin-bottom: 12px; display: block; }
         @keyframes dashboard-enter { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
         @keyframes dashboard-rise { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         @media (min-width: 900px) { .sidebar-is-collapsed .sidebar { width:88px; min-width:88px; } .sidebar-is-collapsed .main-panel { min-width:0; } }
