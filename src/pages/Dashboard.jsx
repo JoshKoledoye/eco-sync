@@ -76,6 +76,7 @@ function Sidebar({ active, setActive, collapsed, onToggle }) {
 function OverviewView({ onScan, onNavigate }) {
   return (
     <section className="page-view overview-view">
+       <img src={logo} alt="EcoSync logo" className="dashboard-logo" />
       <div className="page-header compact-header">
         <div className="eyebrow">HOME / DASHBOARD</div>
         <h1>Good to see you, Ogunmepon</h1>
@@ -202,7 +203,7 @@ export default function Dashboard() {
   const renderedView = activeView === 'overview' ? <OverviewView onScan={goToScanner} onNavigate={setActiveView} /> : activeView === 'collections' ? <CollectionsView onScan={goToScanner} /> : activeView === 'wallet' ? <WalletView /> : activeView === 'scanner' ? <ScannerView /> : <ImpactView />;
 
   return (
-    <img src={logo} alt="EcoSync logo" className="dashboard-logo" />
+   
     <div className={`app-shell ${sidebarCollapsed ? 'sidebar-is-collapsed' : ''}`}>
       <style>{`
         .sidebar, .main-panel, .nav-item, .nav-item .nav-label, .sidebar-wordmark, .profile-copy, .profile-tag, .sidebar-collapse-button, .page-view, .panel-card, .mini-stat, .card-surface, .cta-button, .secondary-button, .sample-item { transition: all 240ms cubic-bezier(.2,.75,.25,1); }
