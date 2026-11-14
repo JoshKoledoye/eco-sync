@@ -892,7 +892,7 @@ export default function Dashboard() {
         .app-shell { display: flex; min-height: 100vh; background: var(--bg-canvas); }
         .main-panel { flex: 1; display: flex; flex-direction: column; min-width: 0; padding: 0 28px 40px; }
 
-        /* Desktop Sidebar with true width shrinkage */
+        /* Desktop Sidebar with Expand-on-Hover capability */
         .sidebar {
           width: 264px;
           min-width: 264px;
@@ -902,14 +902,23 @@ export default function Dashboard() {
           flex-direction: column;
           padding: 20px 14px;
           border-right: 1px solid rgba(255, 255, 255, 0.08);
-          transition: width 220px cubic-bezier(.2,.75,.25,1), min-width 220px cubic-bezier(.2,.75,.25,1);
+          transition: width 220ms cubic-bezier(.2,.75,.25,1), min-width 220ms cubic-bezier(.2,.75,.25,1), padding 220ms ease;
           overflow: hidden;
+          z-index: 30;
         }
+        
+        /* When collapsed, hover expands it smoothly back out */
         .sidebar.sidebar-collapsed {
           width: 80px;
           min-width: 80px;
           padding: 20px 10px;
         }
+        .sidebar.sidebar-collapsed:hover {
+          width: 264px;
+          min-width: 264px;
+          padding: 20px 14px;
+        }
+
         .sidebar-brand { display: flex; align-items: center; gap: 10px; padding: 4px 2px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 18px; }
         .brand-mark { width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg, #10b981, #047857); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 15px; flex-shrink: 0; }
         .sidebar-wordmark { font-weight: 700; font-size: 17px; letter-spacing: -0.02em; color: #fff; flex: 1; white-space: nowrap; transition: opacity 150ms ease; }
@@ -935,7 +944,7 @@ export default function Dashboard() {
         .nav-label { transition: opacity 150ms ease; }
         .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: #10b981; margin-left: auto; }
 
-        /* Hide text elements when collapsed */
+        /* Hide text elements when collapsed (and unhide instantly on hover) */
         .sidebar.sidebar-collapsed .sidebar-wordmark,
         .sidebar.sidebar-collapsed .sidebar-label,
         .sidebar.sidebar-collapsed .nav-label,
@@ -945,6 +954,17 @@ export default function Dashboard() {
           opacity: 0;
           display: none;
         }
+        .sidebar.sidebar-collapsed:hover .sidebar-wordmark,
+        .sidebar.sidebar-collapsed:hover .sidebar-label,
+        .sidebar.sidebar-collapsed:hover .nav-label,
+        .sidebar.sidebar-collapsed:hover .profile-copy,
+        .sidebar.sidebar-collapsed:hover .profile-tag,
+        .sidebar.sidebar-collapsed:hover .nav-dot {
+          opacity: 1;
+          display: block;
+        }
+        .sidebar.sidebar-collapsed:hover .nav-dot { display: inline-block; }
+
         .sidebar.sidebar-collapsed .sidebar-brand {
           justify-content: center;
           flex-direction: column;
@@ -952,14 +972,30 @@ export default function Dashboard() {
           padding-left: 0;
           padding-right: 0;
         }
+        .sidebar.sidebar-collapsed:hover .sidebar-brand {
+          justify-content: space-between;
+          flex-direction: row;
+          padding: 4px 2px 20px;
+        }
+
         .sidebar.sidebar-collapsed .nav-item {
           justify-content: center;
           padding-left: 0;
           padding-right: 0;
         }
+        .sidebar.sidebar-collapsed:hover .nav-item {
+          justify-content: flex-start;
+          padding-left: 10px;
+          padding-right: 10px;
+        }
+
         .sidebar.sidebar-collapsed .profile-card {
           justify-content: center;
           padding: 8px;
+        }
+        .sidebar.sidebar-collapsed:hover .profile-card {
+          justify-content: flex-start;
+          padding: 10px;
         }
 
         .sidebar-footer { margin-top: auto; display: flex; flex-direction: column; gap: 12px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
