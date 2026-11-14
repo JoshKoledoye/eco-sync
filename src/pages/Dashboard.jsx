@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import logo from './logo.jpg';
-import EcoBotChat from './EcoBotChat';
 
 const navItems = [
   { id: 'overview', label: 'Overview', shortLabel: 'Home', icon: '🏠' },
@@ -472,6 +471,91 @@ function ImpactView() {
   );
 }
 
+function EcoBotChatModal({ isOpen, onClose }) {
+  const [messages, setMessages] = useState([
+    { sender: 'bot', text: 'Hi Ogunmepon! I am EcoBot, your AI recycling and sustainability assistant. Ask me anything about waste sorting, Hub rates, or how to redeem EcoPoints!' }
+  ]);
+  const [inputVal, setInputVal] = useState('');
+  const [isTyping, setIsTyping] = useState(false);
+  const chatScrollRef = useRef(null);
+
+  useEffect(() => {
+    if (chatScrollRef.current) {
+      chatScrollRef.current.scrollTop = chatScrollRef.current.scrollHeight;
+    }
+  }, [messages, isTyping]);
+
+  if (!isOpen) return null;
+
+  function handleSend(e) {
+    e.preventDefault();
+    if (!inputVal.trim()) return;
+
+    const userText = inputVal.trim();
+    const updatedMessages = [...messages, { sender: 'user', text: userText }];
+    setMessages(updatedMessages);
+    setInputVal('');
+    setIsTyping(true);
+
+    // Simulate AI API response logic
+    setTimeout(() => {
+      let botReply = "That's a great question regarding recycling! To maximize your yield, ensure materials are clean, dry, and categorized properly before scheduling a pickup at Hub #04.";
+      
+      const lower = userText.toLowerCase();
+      if (lower.includes('rate') || lower.includes('price') || lower.includes('pay')) {
+        botReply = "Current hub rates: PET bottles pay ₦150/kg, Aluminium cans pay ₦450/kg, and Cartons pay ₦90/kg. Payouts are credited instantly to your EcoWallet upon verification.";
+      } else if (lower.includes('point') || lower.includes('eco')) {
+        botReply = "You currently have 1,240 EcoPoints available in Tier 2. You can redeem them for utility discounts or convert them directly to NGN once you hit 1,500 points.";
+      } else if (lower.includes('plastic') || lower.includes('bottle')) {
+        botReply = "For PET bottles: rinse thoroughly, crush flat to save space, and keep caps separate for high-grade polymer recovery!";
+      }
+
+      setMessages((prev) => [...prev, { sender: 'bot', text: botReply }]);
+      setIsTyping(false);
+    }, 700);
+  }
+
+  return (
+    <div className="chat-backdrop" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+      <div className="chat-drawer">
+        <div className="chat-header">
+          <div className="chat-title-group">
+            <span className="chat-avatar-icon">🤖</span>
+            <div>
+              <h3>EcoBot Assistant</h3>
+              <span className="chat-status">● Powered by Gemini API</span>
+            </div>
+          </div>
+          <button type="button" className="close-button" onClick={onClose}>×</button>
+        </div>
+
+        <div className="chat-messages" ref={chatScrollRef}>
+          {messages.map((m, idx) => (
+            <div key={idx} className={`chat-bubble ${m.sender}`}>
+              <div className="bubble-text">{m.text}</div>
+            </div>
+          ))}
+          {isTyping && (
+            <div className="chat-bubble bot typing-indicator">
+              <span /> <span /> <span />
+            </div>
+          )}
+        </div>
+
+        <form onSubmit={handleSend} className="chat-input-bar">
+          <input
+            type="text"
+            placeholder="Ask about rates, sorting rules, or points..."
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
+          />
+          <button type="submit" className="cta-button dark">Send</button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
 function WalkthroughModal({ onClose, onBegin }) {
   return (
     <div className="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="walkthrough-title">
@@ -657,9 +741,17 @@ export default function Dashboard() {
         .ai-advice { margin: 0; font-size: 12.5px !important; color: #cbd5e1 !important; line-height: 1.5; }
         .confidence-badge { font-size: 11px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.15); padding: 3px 8px; border-radius: 999px; }
 
-        /* EcoBot Chat Styles shared/imported */
-        .chat-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); display: flex; justify-content: flex-end; z-index: 100; backdrop-filter: blur(2px); animation: fadeIn 200ms ease; }
-        .chat-drawer { width: 100%; max-width: 420px; background: #ffffff; height: 100%; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.15); animation: slideLeft 250ms cubic-bezier(.2,.75,.25,1); }
+        /* EcoBot Chat Drawer Styling */
+        .chat-backdrop {
+          position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5);
+          display: flex; justify-content: flex-end; z-index: 100; backdrop-filter: blur(2px);
+          animation: fadeIn 200ms ease;
+        }
+        .chat-drawer {
+          width: 100%; max-width: 420px; background: #ffffff; height: 100%;
+          display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.15);
+          animation: slideLeft 250ms cubic-bezier(.2,.75,.25,1);
+        }
         @keyframes slideLeft { from { transform: translateX(100%); } to { transform: translateX(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
@@ -683,6 +775,7 @@ export default function Dashboard() {
         .chat-input-bar input { flex: 1; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-size: 13.5px; outline: none; }
         .chat-input-bar input:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
 
+        /* General layout helpers */
         .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 20px; }
         .mini-stat { display: flex; flex-direction: column; gap: 4px; }
         .mini-stat .value { font-size: 28px; font-weight: 700; color: var(--text-primary); }
@@ -746,7 +839,7 @@ export default function Dashboard() {
 
         <div key={activeView}>{renderedView}</div>
 
-        <EcoBotChat isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+        <EcoBotChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
         {showWalkthrough && (
           <WalkthroughModal onClose={() => setShowWalkthrough(false)} onBegin={beginWalkthrough} />
