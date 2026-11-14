@@ -77,6 +77,32 @@ function Sidebar({ active, setActive, collapsed, onToggle, onOpenChat }) {
   );
 }
 
+function MobileBottomNav({ active, setActive, onOpenChat }) {
+  return (
+    <nav className="mobile-bottom-nav" aria-label="Mobile navigation">
+      {navItems.map((item) => {
+        const isActive = active === item.id;
+        return (
+          <button
+            key={item.id}
+            type="button"
+            className={`mobile-nav-item ${isActive ? 'active' : ''}`}
+            aria-current={isActive ? 'page' : undefined}
+            onClick={() => setActive(item.id)}
+          >
+            <span className="mobile-nav-icon">{item.icon}</span>
+            <span className="mobile-nav-label">{item.shortLabel}</span>
+          </button>
+        );
+      })}
+      <button type="button" className="mobile-nav-item chatbot-mobile-btn" onClick={onOpenChat}>
+        <span className="mobile-nav-icon">🤖</span>
+        <span className="mobile-nav-label">EcoBot</span>
+      </button>
+    </nav>
+  );
+}
+
 function OverviewView({ onScan, onNavigate }) {
   return (
     <section className="page-view overview-view">
@@ -512,10 +538,35 @@ export default function Dashboard() {
         .scan-laser { position: absolute; left: 0; right: 0; height: 2px; background: #38bdf8; box-shadow: 0 0 10px #38bdf8; animation: scan-sweep 1.8s ease-in-out infinite; pointer-events: none; }
         @keyframes scan-sweep { 0%, 100% { top: 10%; } 50% { top: 90%; } }
 
+        /* Mobile Responsive Enhancements for Updates */
+        .mobile-bottom-nav { display: none; }
+        @media (max-width: 899px) {
+          .sidebar { display: none; }
+          .main-panel { padding: 0 14px calc(90px + env(safe-area-inset-bottom)); width: 100%; box-sizing: border-box; }
+          .scanner-layout { grid-template-columns: 1fr; gap: 16px; }
+          .camera-live-frame { height: 220px; }
+          .camera-controls { flex-direction: column; width: 100%; }
+          .camera-controls button { width: 100%; justify-content: center; }
+          
+          .mobile-bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            display: grid; grid-template-columns: repeat(6, 1fr);
+            background: #ffffff; border-top: 1px solid #e2e8f0;
+            padding: 6px 4px calc(8px + env(safe-area-inset-bottom)); z-index: 60;
+            box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+          }
+          .mobile-nav-item {
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+            background: transparent; border: none; color: #64748b; padding: 6px 2px; cursor: pointer; font-size: 9.5px; font-weight: 600;
+          }
+          .mobile-nav-icon { font-size: 17px; }
+          .mobile-nav-item.active { color: #0284c7; }
+          .chatbot-mobile-btn { color: #166534 !important; font-weight: 700; }
+        }
+
         @keyframes dashboard-enter { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
         @keyframes dashboard-rise { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         @media (min-width: 900px) { .sidebar-is-collapsed .sidebar { width:88px; min-width:88px; } .sidebar-is-collapsed .main-panel { min-width:0; } }
-        @media (max-width: 899px) { .sidebar-collapse-button { display:none; } .sidebar-is-collapsed .sidebar-wordmark, .sidebar-is-collapsed .sidebar-label, .sidebar-is-collapsed .nav-label, .sidebar-is-collapsed .profile-copy, .sidebar-is-collapsed .profile-tag { opacity:initial; width:auto; overflow:visible; pointer-events:auto; } .sidebar-is-collapsed .nav-item { justify-content:initial; } .sidebar-is-collapsed .profile-card { justify-content:initial; } }
         @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
       `}</style>
 
@@ -543,6 +594,8 @@ export default function Dashboard() {
         {showWalkthrough && <WalkthroughModal onClose={() => setShowWalkthrough(false)} onBegin={beginWalkthrough} />}
         {walkthroughStep > 0 && <div className="walkthrough-progress" role="status">Walkthrough started · Step {walkthroughStep} of 5<button type="button" onClick={() => setWalkthroughStep(0)}>End</button></div>}
       </main>
+
+      <MobileBottomNav active={activeView} setActive={setActiveView} onOpenChat={() => setIsChatOpen(true)} />
     </div>
   );
 }
