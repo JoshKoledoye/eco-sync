@@ -25,9 +25,9 @@ const stats = [
 
 const weekBars = [58, 40, 68, 82, 52, 78, 66];
 
-function Sidebar({ active, setActive, collapsed, onToggle }) {
+function Sidebar({ active, setActive, collapsed, onToggle, sidebarRef }) {
   return (
-    <aside className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
+    <aside ref={sidebarRef} className={`sidebar ${collapsed ? 'sidebar-collapsed' : ''}`}>
       <div className="sidebar-brand">
         <div className="brand-mark">E</div>
         <span className="sidebar-wordmark">EcoSync</span>
@@ -126,7 +126,6 @@ function OverviewView({ onScan, onNavigate }) {
         </div>
       </div>
 
-      {/* Top KPI Strip */}
       <div className="stats-row">
         <article className="mini-stat">
           <div className="stat-top">
@@ -156,9 +155,7 @@ function OverviewView({ onScan, onNavigate }) {
         </article>
       </div>
 
-      {/* Smarter Bottom Dashboard Widgets */}
       <div className="smart-widgets-grid">
-        {/* Widget 1: Recovery Milestone & Tier Telemetry */}
         <article className="panel-card widget-card">
           <div className="panel-heading-row">
             <div className="eyebrow">TIER MILESTONE</div>
@@ -181,7 +178,6 @@ function OverviewView({ onScan, onNavigate }) {
           </div>
         </article>
 
-        {/* Widget 2: Live Material Market Rates */}
         <article className="panel-card widget-card">
           <div className="panel-heading-row">
             <div className="eyebrow">LIVE HUB RATES</div>
@@ -218,7 +214,6 @@ function OverviewView({ onScan, onNavigate }) {
           </div>
         </article>
 
-        {/* Widget 3: Dispatch & Recent Activity */}
         <article className="panel-card widget-card">
           <div className="panel-heading-row">
             <div className="eyebrow">LOGISTICS FEED</div>
@@ -384,8 +379,7 @@ function ScannerView() {
       />
 
       <div className="scanner-layout">
-        {/* Left Card: Static, non-hovering Optical Frame */}
-        <div className="camera-card panel-card no-float">
+        <div className="camera-card panel-card">
           <div className="panel-topline">
             <div className="panel-badge">
               <span className="mini-icon">◉</span>Optical Sensor &amp; Upload
@@ -495,8 +489,7 @@ function ScannerView() {
           )}
         </div>
 
-        {/* Right Card: Material Target & AI Output */}
-        <div className="sample-card panel-card no-float">
+        <div className="sample-card panel-card">
           <div className="sample-header">
             <span className="step-indicator">CLASSIFICATION TARGET</span>
             <span className="badge-pill">{currentSampleObj.rate}</span>
@@ -577,7 +570,7 @@ function CollectionsView({ onScan }) {
         </article>
       </div>
 
-      <div className="panel-card schedule-panel no-float">
+      <div className="panel-card schedule-panel">
         <div className="panel-heading-row">
           <div className="eyebrow">DISPATCH QUEUE</div>
           <span className="status-badge success">● System Ready</span>
@@ -593,7 +586,7 @@ function CollectionsView({ onScan }) {
         </div>
       </div>
 
-      <div className="panel-card collection-history no-float">
+      <div className="panel-card collection-history">
         <div className="panel-heading-row">
           <div className="eyebrow">VERIFIED LEDGER</div>
         </div>
@@ -628,7 +621,7 @@ function WalletView() {
       </div>
 
       <div className="wallet-summary">
-        <div className="wallet-balance card-surface dark-card no-float">
+        <div className="wallet-balance card-surface dark-card">
           <div className="wallet-topline">
             <span className="brand-name">EcoSync Treasury</span>
             <span className="wallet-label">NGN WALLET</span>
@@ -636,7 +629,7 @@ function WalletView() {
           <div className="wallet-total">₦41,200</div>
           <small>Available payout balance</small>
         </div>
-        <div className="points-balance card-surface soft-green no-float">
+        <div className="points-balance card-surface soft-green">
           <div className="wallet-icon">◈</div>
           <div className="points-label">Available EcoPoints</div>
           <div className="points-value">
@@ -667,7 +660,7 @@ function WalletView() {
       {tab === 'rewards' ? (
         <div className="reward-grid">
           {stats.map((stat) => (
-            <article className="wallet-stat card-surface no-float" key={stat.label}>
+            <article className="wallet-stat card-surface" key={stat.label}>
               <div className="wallet-stat-icon">
                 {stat.label.includes('Completed') ? '✓' : stat.label.includes('Recovery') ? '₦' : '◈'}
               </div>
@@ -680,7 +673,7 @@ function WalletView() {
           ))}
         </div>
       ) : (
-        <div className="panel-card no-float">
+        <div className="panel-card">
           <h2>Recent wallet activity</h2>
           <p>No payouts or deductions recorded in the last 7 days.</p>
           <button type="button" className="secondary-button" style={{ marginTop: '12px' }} onClick={() => setTab('rewards')}>
@@ -703,7 +696,7 @@ function ImpactView() {
         </div>
       </div>
 
-      <div className="impact-hero card-surface dark-green no-float">
+      <div className="impact-hero card-surface dark-green">
         <div className="hero-copy">
           <div className="eyebrow light">TOTAL MATERIALS DIVERTED</div>
           <div className="impact-number">
@@ -714,19 +707,19 @@ function ImpactView() {
       </div>
 
       <div className="impact-stats-grid">
-        <article className="impact-stat card-surface no-float">
+        <article className="impact-stat card-surface">
           <div className="impact-icon">↻</div>
           <span>Completed collections</span>
           <strong>1</strong>
           <small>Verified inside demo flow</small>
         </article>
-        <article className="impact-stat card-surface no-float">
+        <article className="impact-stat card-surface">
           <div className="impact-icon">₦</div>
           <span>Recovery earnings</span>
           <strong>₦2,850</strong>
           <small>Illustrative total</small>
         </article>
-        <article className="impact-stat card-surface no-float">
+        <article className="impact-stat card-surface">
           <div className="impact-icon">◈</div>
           <span>Reward points</span>
           <strong>1,240</strong>
@@ -735,7 +728,7 @@ function ImpactView() {
       </div>
 
       <div className="info-row">
-        <div className="chart-card card-surface no-float">
+        <div className="chart-card card-surface">
           <div className="chart-header">
             <span className="eyebrow">WEEKLY RECOVERY VELOCITY</span>
             <span className="badge-pill">7-Day Index</span>
@@ -749,7 +742,7 @@ function ImpactView() {
             ))}
           </div>
         </div>
-        <div className="why-matters card-surface no-float">
+        <div className="why-matters card-surface">
           <div className="chart-header">
             <span className="eyebrow">CIRCULAR VALUE</span>
           </div>
@@ -830,6 +823,21 @@ export default function Dashboard() {
   const [walkthroughStep, setWalkthroughStep] = useState(0);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
+  const sidebarRef = useRef(null);
+
+  // Auto-collapse sidebar on desktop when clicking outside of it
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (!sidebarCollapsed && sidebarRef.current && !sidebarRef.current.contains(event.target)) {
+        setSidebarCollapsed(true);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [sidebarCollapsed]);
+
   const pageTitle = navItems.find((item) => item.id === activeView)?.label ?? 'Overview';
   const goToScanner = () => setActiveView('scanner');
   const beginWalkthrough = () => {
@@ -894,7 +902,7 @@ export default function Dashboard() {
           flex-direction: column;
           padding: 20px 14px;
           border-right: 1px solid rgba(255, 255, 255, 0.08);
-          transition: width 220ms ease, min-width 220ms ease;
+          transition: width 200ms ease, min-width 200ms ease;
         }
         .sidebar-brand { display: flex; align-items: center; gap: 10px; padding: 4px 6px 20px; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 18px; }
         .brand-mark { width: 32px; height: 32px; border-radius: 9px; background: linear-gradient(135deg, #10b981, #047857); color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 15px; flex-shrink: 0; }
@@ -908,7 +916,6 @@ export default function Dashboard() {
           display: flex; align-items: center; gap: 12px; width: 100%; padding: 11px 12px;
           border: 1px solid transparent; border-radius: var(--radius-md); background: transparent;
           color: #94a3b8; font-size: 14px; font-weight: 500; cursor: pointer; text-align: left;
-          transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
         }
         .nav-item:hover { background: rgba(255,255,255,0.05); color: #f8fafc; }
         .nav-item.active {
@@ -960,17 +967,19 @@ export default function Dashboard() {
         .overview-hero-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; }
         .header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 
-        /* Cards & Panels — ZERO hover movement so images/modals never jitter */
+        /* Cards & Panels — STRICTLY NO HOVER TRANSFORM OR MOVEMENT */
         .panel-card, .mini-stat, .card-surface {
           background: var(--bg-surface);
           border: 1px solid var(--border-subtle);
           border-radius: var(--radius-lg);
           padding: 20px;
           box-shadow: var(--shadow-card);
-          transition: border-color 180ms ease;
+          transform: none !important;
+          transition: border-color 160ms ease;
         }
         .panel-card:hover, .mini-stat:hover, .card-surface:hover {
           border-color: var(--border-strong);
+          transform: none !important;
         }
         .panel-card h2, .panel-card h3 { margin: 2px 0 8px; font-size: 17px; font-weight: 700; letter-spacing: -0.015em; }
         .panel-card p { margin: 0; font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; }
@@ -987,16 +996,12 @@ export default function Dashboard() {
         .mini-stat .value { font-size: 28px; font-weight: 700; letter-spacing: -0.03em; color: var(--text-primary); font-variant-numeric: tabular-nums; margin-top: 2px; }
         .mini-stat .label { font-size: 13px; color: var(--text-secondary); font-weight: 500; }
 
-        /* Smarter Bottom Dashboard Widgets */
-        .smart-widgets-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
-        }
+        /* Smart Widgets Grid */
+        .smart-widgets-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
         .widget-card { display: flex; flex-direction: column; justify-content: space-between; gap: 12px; }
         .widget-sub { font-size: 13.5px; color: var(--text-secondary); margin: 0; }
         .progress-track { width: 100%; height: 8px; border-radius: 999px; background: #e2e8f0; overflow: hidden; margin: 4px 0; }
-        .progress-fill { height: 100%; background: linear-gradient(90deg, #10b981, #059669); border-radius: 999px; transition: width 300ms ease; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #10b981, #059669); border-radius: 999px; }
         .widget-footer-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 10px; border-top: 1px solid var(--border-subtle); margin-top: auto; }
         .muted-note { font-size: 12px; color: var(--text-muted); }
         .link-action { background: none; border: none; padding: 0; color: var(--emerald-dark); font-size: 12.5px; font-weight: 700; cursor: pointer; }
@@ -1028,7 +1033,7 @@ export default function Dashboard() {
         .cta-button, .secondary-button {
           display: inline-flex; align-items: center; justify-content: center; gap: 8px;
           padding: 10px 16px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 600;
-          cursor: pointer; transition: background-color 160ms ease, border-color 160ms ease; border: 1px solid transparent;
+          cursor: pointer; border: 1px solid transparent;
         }
         .cta-button.dark { background: var(--bg-obsidian); color: #ffffff; }
         .cta-button.dark:hover { background: #152e29; border-color: var(--emerald-core); }
@@ -1159,7 +1164,7 @@ export default function Dashboard() {
         .matter-list { margin: 12px 0 0; padding-left: 18px; color: var(--text-secondary); font-size: 13.5px; line-height: 1.7; }
         .impact-disclaimer { font-size: 12px; color: var(--text-muted); }
 
-        /* Rock-solid Modal — no hover transforms or jitter */
+        /* Rock-solid Modal — absolute stability */
         .modal-backdrop {
           position: fixed; inset: 0; background: rgba(11, 22, 20, 0.65);
           display: flex; align-items: center; justify-content: center;
@@ -1264,6 +1269,7 @@ export default function Dashboard() {
         setActive={setActiveView}
         collapsed={sidebarCollapsed}
         onToggle={() => setSidebarCollapsed((value) => !value)}
+        sidebarRef={sidebarRef}
       />
 
       <main className="main-panel">
