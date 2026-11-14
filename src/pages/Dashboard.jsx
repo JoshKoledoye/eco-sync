@@ -106,7 +106,7 @@ function ScannerView() {
   const [stream, setStream] = useState(null);
   const [capturedPhoto, setCapturedPhoto] = useState('');
   const [cameraError, setCameraError] = useState('');
-  
+
   const videoRef = useRef(null);
   const fileInputRef = useRef(null);
 
@@ -125,25 +125,25 @@ function ScannerView() {
     try {
       setStream(await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: { ideal: 'environment' } } }));
     } catch (error) {
-      if (error.name === 'NotAllowedError' || error.name === 'SecurityError') setCameraError('Camera permission was denied. Allow camera access or use upload.');
+      if (error.name === 'NotAllowedError' || error.name === 'SecurityError') setCameraError('Camera permission was denied. Allow camera access in your browser settings or upload an image.');
       else if (error.name === 'NotFoundError' || error.name === 'DevicesNotFoundError') setCameraError('No camera was found on this device. Use upload instead.');
-      else setCameraError('Could not open the camera. Check your device settings or upload an image.');
+      else setCameraError('Could not open the camera. Check that it is connected or upload an image.');
     }
   }
 
-  function stopCamera() { 
-    stream?.getTracks().forEach((track) => track.stop()); 
-    setStream(null); 
+  function stopCamera() {
+    stream?.getTracks().forEach((track) => track.stop());
+    setStream(null);
   }
 
   function takePhoto() {
     const video = videoRef.current;
     if (!video?.videoWidth) { setCameraError('The camera is still starting. Please try again in a moment.'); return; }
     const canvas = document.createElement('canvas');
-    canvas.width = video.videoWidth; 
+    canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
     canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-    setCapturedPhoto(canvas.toDataURL('image/jpeg', 0.9)); 
+    setCapturedPhoto(canvas.toDataURL('image/jpeg', 0.9));
     stopCamera();
   }
 
@@ -172,7 +172,7 @@ function ScannerView() {
       <div className="page-header compact-header">
         <div className="eyebrow">AI WASTE ASSISTANT / DEMONSTRATION</div>
         <h1>Let&apos;s identify your waste.</h1>
-        <p>Take a photo or upload an image to see how EcoSync guides recovery.</p>
+        <p>Take a photo, upload an image, or choose a sample to see how EcoSync guides recovery.</p>
       </div>
 
       <input
@@ -201,7 +201,7 @@ function ScannerView() {
                 <small>Keep items well lit and in focus</small>
                 <div className="camera-controls">
                   <button type="button" className="cta-button dark" onClick={takePhoto}>Take photo</button>
-                  <button type="button" className="secondary-button" onClick={() => fileInputRef.current?.click()}>Upload instead</button>
+                  <button type="button" className="secondary-button" onClick={() => fileInputRef.current?.click()}>Upload photo</button>
                   <button type="button" className="secondary-button" onClick={stopCamera}>Close camera</button>
                 </div>
               </>
@@ -210,12 +210,11 @@ function ScannerView() {
                 <div className="camera-live-frame">
                   <img className="camera-video" src={capturedPhoto} alt="Captured or uploaded photo of the material" />
                 </div>
-                <p>Photo captured / uploaded</p>
+                <p>Photo ready</p>
                 <small>Your photo stays in this browser session.</small>
                 <div className="camera-controls">
                   <button type="button" className="cta-button dark" onClick={openCamera}>Retake photo</button>
                   <button type="button" className="secondary-button" onClick={() => fileInputRef.current?.click()}>Upload new</button>
-                  <button type="button" className="secondary-button" onClick={() => setCapturedPhoto('')}>Clear</button>
                 </div>
               </>
             ) : (
@@ -264,10 +263,7 @@ function CollectionsView({ onScan }) {
     <section className="page-view collections-view">
       <div className="page-header collection-header">
         <div className="eyebrow">YOUR RECOVERY ACTIVITY</div>
-        <div className="header-row">
-          <h1>My collections</h1>
-          <button type="button" className="cta-button dark" onClick={onScan}>+ New scan</button>
-        </div>
+        <div className="header-row"><h1>My collections</h1><button type="button" className="cta-button dark" onClick={onScan}>+ New scan</button></div>
         <p>Keep track of every material moving toward a second life.</p>
       </div>
       <div className="stats-row">
@@ -306,10 +302,7 @@ function WalletView() {
     <section className="page-view wallet-view">
       <div className="page-header compact-header wallet-header">
         <div className="eyebrow">EARN FROM EVERY RECOVERY</div>
-        <div className="header-row">
-          <h1>EcoWallet</h1>
-          <button type="button" className="secondary-button small" onClick={() => setTab('activity')}>View activity</button>
-        </div>
+        <div className="header-row"><h1>EcoWallet</h1><button type="button" className="secondary-button small" onClick={() => setTab('activity')}>View activity</button></div>
       </div>
       <div className="wallet-summary">
         <div className="wallet-balance card-surface">
@@ -352,10 +345,7 @@ function ImpactView() {
     <section className="page-view impact-view">
       <div className="page-header impact-header">
         <div className="eyebrow">YOUR POSITIVE FOOTPRINT</div>
-        <div className="header-row">
-          <h1>Small actions. Lasting impact.</h1>
-          <span className="secondary-button small">Your impact summary</span>
-        </div>
+        <div className="header-row"><h1>Small actions. Lasting impact.</h1><span className="secondary-button small">Your impact summary</span></div>
       </div>
       <div className="impact-hero card-surface dark-green">
         <div className="hero-copy">
@@ -398,7 +388,7 @@ function WalkthroughModal({ onClose, onBegin }) {
         <button type="button" className="close-button" onClick={onClose} aria-label="Close walkthrough">×</button>
         <div className="walkthrough-header"><div className="eyebrow">WELCOME</div><h2 id="walkthrough-title">EcoSync quick start</h2></div>
         <ol className="walkthrough-steps">
-          <li><span className="step-marker">1.</span><div className="step-icon">◉</div><div><strong>Scan or upload a material</strong><span>Choose PET bottles or upload an image and view sorting advice.</span></div></li>
+          <li><span className="step-marker">1.</span><div className="step-icon">◉</div><div><strong>Scan a material</strong><span>Choose PET bottles and view sorting advice.</span></div></li>
           <li><span className="step-marker">2.</span><div className="step-icon">▣</div><div><strong>Track collections</strong><span>Review status, pickup timing, and your activity log.</span></div></li>
           <li><span className="step-marker">3.</span><div className="step-icon">◫</div><div><strong>Earn rewards</strong><span>Turn recovery into EcoPoints and wallet balance.</span></div></li>
         </ol>
@@ -420,30 +410,21 @@ export default function Dashboard() {
   const pageTitle = navItems.find((item) => item.id === activeView)?.label ?? 'Overview';
   const goToScanner = () => setActiveView('scanner');
   const beginWalkthrough = () => { setShowWalkthrough(false); setActiveView('scanner'); setWalkthroughStep(1); };
-  
-  const renderedView = 
-    activeView === 'overview' ? <OverviewView onScan={goToScanner} onNavigate={setActiveView} /> : 
-    activeView === 'collections' ? <CollectionsView onScan={goToScanner} /> : 
-    activeView === 'wallet' ? <WalletView /> : 
-    activeView === 'scanner' ? <ScannerView /> : <ImpactView />;
+  const renderedView = activeView === 'overview' ? <OverviewView onScan={goToScanner} onNavigate={setActiveView} /> : activeView === 'collections' ? <CollectionsView onScan={goToScanner} /> : activeView === 'wallet' ? <WalletView /> : activeView === 'scanner' ? <ScannerView /> : <ImpactView />;
 
   return (
     <div className={`app-shell ${sidebarCollapsed ? 'sidebar-is-collapsed' : ''}`}>
       <style>{`
         .sidebar, .main-panel, .nav-item, .nav-item .nav-label, .sidebar-wordmark, .profile-copy, .profile-tag, .sidebar-collapse-button, .page-view, .panel-card, .mini-stat, .card-surface, .cta-button, .secondary-button, .sample-item { transition: all 240ms cubic-bezier(.2,.75,.25,1); }
         .sidebar-collapse-button { display:flex; align-items:center; justify-content:center; gap:9px; width:calc(100% - 32px); margin:12px 16px 18px; padding:9px 10px; border:1px solid rgba(255,255,255,.13); border-radius:10px; color:inherit; background:rgba(255,255,255,.06); cursor:pointer; }
-        .sidebar-collapse-button:hover { background:rgba(255,255,255,.14); }
+        .sidebar-collapse-button:hover { background:rgba(255,255,255,.14); transform:translateY(-1px); }
         .overview-action-buttons { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
-        .page-view { animation: dashboard-enter 420ms cubic-bezier(.2,.7,.25,1) both; }
-        .page-view .page-header, .page-view .stats-row, .page-view > .panel-card, .page-view .scanner-layout, .page-view .wallet-summary, .page-view .impact-hero, .page-view .impact-stats-grid, .page-view .info-row { animation: dashboard-rise 480ms cubic-bezier(.2,.7,.25,1) both; }
+        .page-view { animation: dashboard-enter 420ms cubic-bezier(.2,.75,.25,1) both; }
+        .page-view .page-header, .page-view .stats-row, .page-view > .panel-card, .page-view .scanner-layout, .page-view .wallet-summary, .page-view .impact-hero, .page-view .impact-stats-grid, .page-view .info-row { animation: dashboard-rise 480ms cubic-bezier(.2,.75,.25,1) both; }
         .page-view .stats-row, .page-view .wallet-summary, .page-view .impact-stats-grid { animation-delay:70ms; }
         .page-view > .panel-card:nth-of-type(2), .page-view .info-row { animation-delay:130ms; }
-        
-        /* Stable elements - NO jitter or hovering movement on pointer touch */
-        .panel-card, .mini-stat, .card-surface, .camera-box, .walkthrough-modal { transform: none !important; }
-        .panel-card:hover, .mini-stat:hover, .card-surface:hover { transform: none !important; }
-
-        .nav-item:hover, .sample-item:hover, .cta-button:hover, .secondary-button:hover { transform:translateY(-1px); }
+        .panel-card:hover, .mini-stat:hover, .card-surface:hover { transform:translateY(-3px); box-shadow:0 12px 28px rgba(20,45,33,.09); }
+        .nav-item:hover, .sample-item:hover, .cta-button:hover, .secondary-button:hover { transform:translateY(-2px); }
         .sample-item:active, .cta-button:active, .secondary-button:active { transform:scale(.98); }
         .sidebar-is-collapsed .sidebar-wordmark, .sidebar-is-collapsed .sidebar-label, .sidebar-is-collapsed .sidebar-toggle-label, .sidebar-is-collapsed .nav-label, .sidebar-is-collapsed .profile-copy, .sidebar-is-collapsed .profile-tag { opacity:0; width:0; overflow:hidden; pointer-events:none; white-space:nowrap; }
         .sidebar-is-collapsed .sidebar-collapse-button { width:48px; margin-left:auto; margin-right:auto; }
