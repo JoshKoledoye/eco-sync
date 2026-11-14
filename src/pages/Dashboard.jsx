@@ -496,29 +496,9 @@ export default function Dashboard() {
         .sidebar-is-collapsed .profile-card { justify-content:center; padding-left:6px; padding-right:6px; }
         .dashboard-logo { max-height: 40px; width: auto; margin-bottom: 12px; display: block; }
         
-        /* Chat Drawer Styles */
-        .chat-backdrop { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); display: flex; justify-content: flex-end; z-index: 100; backdrop-filter: blur(2px); animation: fadeIn 200ms ease; }
-        .chat-drawer { width: 100%; max-width: 420px; background: #ffffff; height: 100%; display: flex; flex-direction: column; box-shadow: -10px 0 30px rgba(0,0,0,0.15); animation: slideLeft 250ms cubic-bezier(.2,.75,.25,1); }
-        @keyframes slideLeft { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .chat-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid #e2e8f0; background: #f8fafc; }
-        .chat-title-group { display: flex; align-items: center; gap: 12px; }
-        .chat-avatar-icon { font-size: 24px; width: 40px; height: 40px; border-radius: 10px; background: #e0f2fe; display: grid; place-items: center; }
-        .chat-title-group h3 { margin: 0; font-size: 16px; font-weight: 700; color: #0f172a; }
-        .chat-status { font-size: 11px; color: #0284c7; font-weight: 600; }
-        .close-button { background: #f1f5f9; border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; cursor: pointer; display: grid; place-items: center; }
-        .chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; background: #f8fafc; }
-        .chat-bubble { max-width: 82%; padding: 12px 16px; border-radius: 14px; font-size: 13.5px; line-height: 1.5; }
-        .chat-bubble.bot { background: #ffffff; color: #0f172a; border: 1px solid #e2e8f0; align-self: flex-start; border-bottom-left-radius: 4px; }
-        .chat-bubble.user { background: #0284c7; color: #ffffff; align-self: flex-end; border-bottom-right-radius: 4px; }
-        .typing-indicator span { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #94a3b8; animation: bounce 1.4s infinite ease-in-out both; margin: 0 2px; }
-        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
-        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1.0); } }
-        .chat-input-bar { padding: 16px 20px; background: #ffffff; border-top: 1px solid #e2e8f0; display: flex; gap: 10px; }
-        .chat-input-bar input { flex: 1; padding: 10px 14px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 13.5px; outline: none; }
-        .chat-input-bar input:focus { border-color: #0284c7; box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1); }
+        /* Chat Trigger Button Style in Sidebar */
         .chatbot-trigger-btn { background: #f0fdf4 !important; color: #166534 !important; border: 1px solid #bbf7d0 !important; font-weight: 600; margin-top: auto; }
+        .chatbot-trigger-btn:hover { background: #dcfce7 !important; }
 
         /* AI Scanner Telemetry Output Box */
         .ai-result-box { margin-top: 14px; padding: 16px; border-radius: 10px; background: #0f172a; color: #f8fafc; border: 1px solid #1e293b; }
